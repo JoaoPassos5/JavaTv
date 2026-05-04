@@ -4,6 +4,8 @@
  */
 package anttv;
 
+import view.Login;
+
 /**
  *
  * @author USer
@@ -14,7 +16,8 @@ public class AntTv {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+       Login l = new Login();
+       l.setVisible(true);
     }
     
 }
