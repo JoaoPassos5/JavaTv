@@ -6,6 +6,7 @@ package controller;
 
 import model.Conta;
 import view.Logado;
+import view.MenuVideo;
 
 /**
  *
@@ -19,6 +20,14 @@ public class ControleLogado {
         this.tela4 = tela4;
         this.conta = conta;
     }
+
+    
+    
+//    public void abrirMenuVideo() {
+//    MenuVideo telaMenu = new MenuVideo();
+//    telaMenu.setVisible(true);
+//    
+//}
     
     
     

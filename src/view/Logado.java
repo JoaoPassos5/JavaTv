@@ -23,6 +23,8 @@ public class Logado extends javax.swing.JFrame {
     public Logado(Conta conta) {
         initComponents();
         lblTitulo.setText((conta.getNome()));
+        
+        
     }
 
 //    public Logado(Conta conta) {
@@ -30,11 +32,11 @@ public class Logado extends javax.swing.JFrame {
 //    }
 
     public JButton getjButton1() {
-        return jButton1;
+        return btExplorar;
     }
 
     public void setjButton1(JButton jButton1) {
-        this.jButton1 = jButton1;
+        this.btExplorar = jButton1;
     }
 
     public JButton getjButton2() {
@@ -65,7 +67,7 @@ public class Logado extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTitulo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btExplorar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -73,7 +75,9 @@ public class Logado extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         lblTitulo.setText("Nome");
 
-        jButton1.setText("jButton1");
+        btExplorar.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        btExplorar.setText("Explorar");
+        btExplorar.addActionListener(this::btExplorarActionPerformed);
 
         jButton2.setText("jButton2");
 
@@ -89,7 +93,7 @@ public class Logado extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(150, 150, 150)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                            .addComponent(btExplorar, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(195, Short.MAX_VALUE))
         );
@@ -99,7 +103,7 @@ public class Logado extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(56, 56, 56)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(105, 105, 105))
@@ -107,6 +111,13 @@ public class Logado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btExplorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExplorarActionPerformed
+        // TODO add your handling code here:
+        MenuVideo tela = new MenuVideo();
+        tela.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btExplorarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,7 +147,7 @@ public class Logado extends javax.swing.JFrame {
     private ControleLogado c;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btExplorar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
