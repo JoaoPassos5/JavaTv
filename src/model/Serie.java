@@ -9,13 +9,17 @@ package model;
  * @author USer
  */
 public class Serie extends Video {
-    
-    private int temporadas;
 
-    public Serie(String titulo, int duracao, int temporadas) {
-        super(titulo, duracao);
-        this.temporadas = temporadas;
+    public Serie(int id, String titulo, int duracao) {
+        super(id, titulo, duracao);
     }
+    
+    
+    
+  
+
+
+    
 
     @Override
     public void exibirInfo() {

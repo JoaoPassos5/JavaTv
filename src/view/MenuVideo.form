@@ -24,59 +24,83 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="191" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="187" max="-2" attributes="0"/>
-              <EmptySpace pref="103" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="jButton3" min="-2" pref="191" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="234" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
+                          <Component id="lblMenu" min="-2" pref="143" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jScrollPane1" min="-2" pref="461" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="btFilme" min="-2" pref="191" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                                  <Component id="btSerie" min="-2" pref="187" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="lblMenu" min="-2" pref="143" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="257" max="-2" attributes="0"/>
+                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="btCurtir" min="-2" pref="165" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btDescurtir" min="-2" pref="165" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="jScrollPane2" min="-2" pref="469" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="113" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="lblMenu" min="-2" pref="46" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
+                  <Component id="btSerie" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
+                  <Component id="btFilme" alignment="3" min="-2" pref="55" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-              <Component id="jButton3" min="-2" pref="52" max="-2" attributes="0"/>
-              <EmptySpace pref="137" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="282" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="jScrollPane2" min="-2" pref="36" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btCurtir" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+                  <Component id="btDescurtir" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="195" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btFilme">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="2"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Filmes"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btFilmeActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btSerie">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="2"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="S&#xe9;ries"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton3"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSerieActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblMenu">
       <Properties>
@@ -84,6 +108,65 @@
           <Font name="Segoe UI" size="24" style="3"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Menu V&#xed;deo"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="jTextArea1">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JList" name="listaVideos">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+              <StringArray count="5">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+                <StringItem index="4" value="Item 5"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listaVideosValueChanged"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="btCurtir">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="2"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Curtir"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btDescurtir">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="2"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Descutir"/>
       </Properties>
     </Component>
   </SubComponents>

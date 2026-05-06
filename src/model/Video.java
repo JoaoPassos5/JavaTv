@@ -9,13 +9,19 @@ package model;
  * @author USer
  */
 public abstract class Video {
-    
-       protected String titulo;
+
+    protected int id;
+    protected String titulo;
     protected int duracao;
 
-    public Video(String titulo, int duracao) {
+    public Video(int id, String titulo, int duracao) {
+        this.id = id;
         this.titulo = titulo;
         this.duracao = duracao;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitulo() {
@@ -26,7 +32,10 @@ public abstract class Video {
         return duracao;
     }
 
-    
     public abstract void exibirInfo();
     
+    @Override
+    public String toString() {
+      return titulo;
+}
 }

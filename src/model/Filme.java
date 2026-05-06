@@ -9,15 +9,15 @@ package model;
  * @author USer
  */
 public class Filme extends Video {
-    
-    private String diretor, genero;
 
-    public Filme(String titulo, int duracao, String diretor, String genero) {
-        super(titulo, duracao);
-        this.diretor = diretor;
-        this.genero = genero;
+    public Filme(int id, String titulo, int duracao) {
+        super(id, titulo, duracao);
     }
-
+    
+    
+   
+  
+    
     @Override
     public void exibirInfo() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

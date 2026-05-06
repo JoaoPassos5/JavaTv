@@ -39,24 +39,26 @@ public class ControleLogin {
             ContaDAO dao = new ContaDAO(conn);
             ResultSet res = dao.consultar(conta);
 
-            if (res.next()) {
-                JOptionPane.showMessageDialog(
-                    tela,
-                    "Login feito",
-                    "Aviso",
-                    JOptionPane.INFORMATION_MESSAGE
-                );
+          if (res.next()) {
+              JOptionPane.showMessageDialog(
+              tela,
+              "Login feito",
+              "Aviso",
+              JOptionPane.INFORMATION_MESSAGE
+    );
 
-                String nome = res.getString("nome");
-                String usuario = res.getString("usuario");
-                String senha = res.getString("senha");
+            int id = res.getInt("id"); 
 
-                Logado tela2 = new Logado(new Conta(nome, usuario, senha));
+           String nome = res.getString("nome");
+           String usuario = res.getString("usuario");
+           String senha = res.getString("senha");
 
-                tela2.setVisible(true);
-                tela.setVisible(false);
+           Logado tela2 = new Logado(new Conta(id, nome, usuario, senha)); 
 
-            } else {
+           tela2.setVisible(true);
+           tela.setVisible(false);
+
+              } else {
                 JOptionPane.showMessageDialog(
                     tela,
                     "Login não efetuado",

@@ -11,6 +11,7 @@ package model;
 public class Conta {
     
     private String nome, usuario, senha;
+    private int id;
 
     public Conta() {
     }
@@ -19,6 +20,15 @@ public class Conta {
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
+    }
+    
+    
+
+    public Conta(int id,String nome, String usuario, String senha) {
+        this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
+        this.id = id;
     }
 
     public String getNome() {
@@ -44,6 +54,16 @@ public class Conta {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    
     
     
     
