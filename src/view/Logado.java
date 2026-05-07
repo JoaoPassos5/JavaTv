@@ -16,6 +16,8 @@ import model.Conta;
 public class Logado extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Logado.class.getName());
+    
+    private Conta conta;
 
     /**
      * Creates new form Logado
@@ -24,7 +26,8 @@ public class Logado extends javax.swing.JFrame {
         initComponents();
         lblTitulo.setText((conta.getNome()));
         
-        
+        this.conta = conta;
+            
     }
 
 //    public Logado(Conta conta) {
@@ -40,11 +43,11 @@ public class Logado extends javax.swing.JFrame {
     }
 
     public JButton getjButton2() {
-        return jButton2;
+        return btFavoritos;
     }
 
     public void setjButton2(JButton jButton2) {
-        this.jButton2 = jButton2;
+        this.btFavoritos = jButton2;
     }
 
     public JLabel getLblTitulo() {
@@ -68,7 +71,7 @@ public class Logado extends javax.swing.JFrame {
 
         lblTitulo = new javax.swing.JLabel();
         btExplorar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btFavoritos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,7 +82,10 @@ public class Logado extends javax.swing.JFrame {
         btExplorar.setText("Explorar");
         btExplorar.addActionListener(this::btExplorarActionPerformed);
 
-        jButton2.setText("jButton2");
+        btFavoritos.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        btFavoritos.setText("Favoritos");
+        btFavoritos.setToolTipText("");
+        btFavoritos.addActionListener(this::btFavoritosActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,7 +100,7 @@ public class Logado extends javax.swing.JFrame {
                         .addGap(150, 150, 150)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btExplorar, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btFavoritos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(195, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -105,7 +111,7 @@ public class Logado extends javax.swing.JFrame {
                 .addGap(56, 56, 56)
                 .addComponent(btExplorar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btFavoritos, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(105, 105, 105))
         );
 
@@ -114,10 +120,18 @@ public class Logado extends javax.swing.JFrame {
 
     private void btExplorarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExplorarActionPerformed
         // TODO add your handling code here:
-        MenuVideo tela = new MenuVideo();
+        MenuVideo tela = new MenuVideo(this.conta);
         tela.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btExplorarActionPerformed
+
+    private void btFavoritosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFavoritosActionPerformed
+        // TODO add your handling code here:
+        
+        MenuFavorito tela = new MenuFavorito(this.conta);
+        tela.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btFavoritosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,7 +162,7 @@ public class Logado extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btExplorar;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btFavoritos;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }

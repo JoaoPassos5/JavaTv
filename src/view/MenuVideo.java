@@ -6,9 +6,11 @@ package view;
 
 import java.sql.Connection;
 import dao.Conexao;
+import dao.SituacaoDAO;
 import dao.VideoDAO;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import model.Conta;
 import model.Filme;
 import model.Serie;
 import model.Video;
@@ -19,6 +21,8 @@ import model.Video;
  */
 public class MenuVideo extends javax.swing.JFrame {
     
+    private Conta conta;
+    
     private ArrayList<Video> listaVideosAtual;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MenuVideo.class.getName());
@@ -26,8 +30,10 @@ public class MenuVideo extends javax.swing.JFrame {
     /**
      * Creates new form MenuVideo
      */
-    public MenuVideo() {
+    public MenuVideo(Conta conta) {
         initComponents();
+        
+        this.conta = conta;
     }
 
     /**
@@ -66,19 +72,16 @@ public class MenuVideo extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        listaVideos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         listaVideos.addListSelectionListener(this::listaVideosValueChanged);
         jScrollPane2.setViewportView(listaVideos);
 
         btCurtir.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         btCurtir.setText("Curtir");
+        btCurtir.addActionListener(this::btCurtirActionPerformed);
 
         btDescurtir.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         btDescurtir.setText("Descutir");
+        btDescurtir.addActionListener(this::btDescurtirActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,6 +142,8 @@ public class MenuVideo extends javax.swing.JFrame {
         VideoDAO dao = new VideoDAO(conn);
 
         ArrayList<Video> lista = dao.listar();
+        
+        listaVideosAtual = lista;
 
         jTextArea1.setText("");
 
@@ -155,6 +160,7 @@ public class MenuVideo extends javax.swing.JFrame {
         model.addElement(v.getTitulo());
     }
   }
+    listaVideos.setModel(model);
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -171,6 +177,8 @@ public class MenuVideo extends javax.swing.JFrame {
         VideoDAO dao = new VideoDAO(conn);
 
         ArrayList<Video> lista = dao.listar();
+        
+        listaVideosAtual = lista;
 
         jTextArea1.setText("");
 
@@ -186,7 +194,8 @@ public class MenuVideo extends javax.swing.JFrame {
        if (v instanceof Serie) {
         model.addElement(v.getTitulo());
     }
-  }
+  } 
+    listaVideos.setModel(model);
 
     } catch (Exception e) {
         e.printStackTrace();
@@ -212,6 +221,74 @@ public class MenuVideo extends javax.swing.JFrame {
     }
 }
     }//GEN-LAST:event_listaVideosValueChanged
+
+    private void btCurtirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCurtirActionPerformed
+        // TODO add your handling code here:
+    String selecionado = listaVideos.getSelectedValue();
+
+    if (selecionado != null) {
+
+        for (Video v : listaVideosAtual) {
+
+            if (v.getTitulo().equals(selecionado)) {
+
+                Conexao conexao = new Conexao();
+
+                try {
+
+                    Connection conn = conexao.getConnection();
+
+                    SituacaoDAO dao = new SituacaoDAO(conn);
+
+                    dao.salvarSituacao(conta.getId(), v.getId(), true);
+
+                    jTextArea1.setText(
+                        v.getTitulo() + "\n\n👍 Curtido"
+                    );
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            }
+        }
+    }
+    }//GEN-LAST:event_btCurtirActionPerformed
+
+    private void btDescurtirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDescurtirActionPerformed
+        // TODO add your handling code here:
+    String selecionado = listaVideos.getSelectedValue();
+
+    if (selecionado != null) {
+
+        for (Video v : listaVideosAtual) {
+
+            if (v.getTitulo().equals(selecionado)) {
+
+                Conexao conexao = new Conexao();
+
+                try {
+
+                    Connection conn = conexao.getConnection();
+
+                    SituacaoDAO dao = new SituacaoDAO(conn);
+
+                    dao.salvarSituacao(conta.getId(), v.getId(), false);
+
+                    jTextArea1.setText(
+                        v.getTitulo() + "\n\n👎 Descurtido"
+                    );
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            }
+        }
+    }
+    }//GEN-LAST:event_btDescurtirActionPerformed
 
     /**
      * @param args the command line arguments

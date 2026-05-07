@@ -135,13 +135,7 @@
         <Component class="javax.swing.JList" name="listaVideos">
           <Properties>
             <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-                <StringItem index="4" value="Item 5"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
@@ -160,6 +154,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Curtir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCurtirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btDescurtir">
       <Properties>
@@ -168,6 +165,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Descutir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btDescurtirActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
