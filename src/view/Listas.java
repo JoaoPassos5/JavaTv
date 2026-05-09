@@ -25,6 +25,8 @@ public class Listas extends javax.swing.JFrame {
     
     private Conta conta;
     
+    private ArrayList<Video> favoritosAtual;
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Listas.class.getName());
 
     /**
@@ -35,6 +37,7 @@ public class Listas extends javax.swing.JFrame {
         this.conta = conta;
         
         carregarFavoritos();
+        carregarListas();
     }
 
    
@@ -53,34 +56,26 @@ public class Listas extends javax.swing.JFrame {
 
         DefaultListModel<String> model = new DefaultListModel<>();
 
-        ArrayList<Object> favoritosAtual = new ArrayList<>();
+        this.favoritosAtual = new ArrayList<>(); // <- FIX PRINCIPAL
 
         while (rs.next()) {
 
             int id = rs.getInt("id");
-
             String titulo = rs.getString("titulo");
-
             int duracao = rs.getInt("duracao");
-
             String tipo = rs.getString("tipo");
-
             String genero = rs.getString("genero");
-
             int ano = rs.getInt("ano_lancamento");
 
             Video v;
 
             if (tipo.equals("filme")) {
-
                 v = new Filme(id, titulo, duracao, genero, ano);
-
             } else {
-
                 v = new Serie(id, titulo, duracao, genero, ano);
             }
 
-            favoritosAtual.add(v);
+            this.favoritosAtual.add(v); 
 
             model.addElement(v.getTitulo());
         }
@@ -88,6 +83,38 @@ public class Listas extends javax.swing.JFrame {
         listaFavoritos.setModel(model);
 
     } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    
+    public void carregarListas() {
+
+    Conexao conexao = new Conexao();
+
+    try {
+
+        Connection conn = conexao.getConnection();
+
+        ListaDAO dao = new ListaDAO(conn);
+
+        ResultSet rs =
+            dao.listarListas(conta.getId());
+
+        DefaultListModel<String> model =
+            new DefaultListModel<>();
+
+        while (rs.next()) {
+
+            String nome =
+                rs.getString("nome");
+
+            model.addElement(nome);
+        }
+
+        listaListas.setModel(model);
+
+    } catch (Exception e) {
+
         e.printStackTrace();
     }
 }
@@ -107,6 +134,17 @@ public class Listas extends javax.swing.JFrame {
         listaFavoritos = new javax.swing.JList<>();
         btCriar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listaListas = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        areaLista = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        btExcluir = new javax.swing.JButton();
+        btAdd = new javax.swing.JButton();
+        btRemover = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        btVoltar = new javax.swing.JButton();
+        btRecarregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,11 +154,6 @@ public class Listas extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel2.setText("Crie listas de seus vídeos favoritos!");
 
-        listaFavoritos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaFavoritos);
 
         btCriar.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
@@ -130,40 +163,110 @@ public class Listas extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel3.setText("Lista de Vídeos Favoritados");
 
+        listaListas.addListSelectionListener(this::listaListasValueChanged);
+        jScrollPane2.setViewportView(listaListas);
+
+        areaLista.setColumns(20);
+        areaLista.setRows(5);
+        jScrollPane3.setViewportView(areaLista);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jLabel4.setText("Listas");
+
+        btExcluir.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        btExcluir.setText("Excluir");
+        btExcluir.addActionListener(this::btExcluirActionPerformed);
+
+        btAdd.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        btAdd.setText("Adcione um Vídeo");
+        btAdd.addActionListener(this::btAddActionPerformed);
+
+        btRemover.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        btRemover.setText("Remova um Vídeo");
+        btRemover.addActionListener(this::btRemoverActionPerformed);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jLabel5.setText("Edite as Listas!");
+
+        btVoltar.setText("◀️");
+        btVoltar.addActionListener(this::btVoltarActionPerformed);
+
+        btRecarregar.setText("🔃");
+        btRecarregar.addActionListener(this::btRecarregarActionPerformed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(163, 163, 163)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
-                .addContainerGap(47, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btAdd)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btRemover, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3))))
+                .addGap(87, 87, 87))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btRecarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btVoltar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                    .addComponent(btRecarregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         pack();
@@ -171,7 +274,7 @@ public class Listas extends javax.swing.JFrame {
 
     private void btCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarActionPerformed
         // TODO add your handling code here:
-    Conexao conexao = new Conexao();
+     Conexao conexao = new Conexao();
 
     try {
 
@@ -190,6 +293,8 @@ public class Listas extends javax.swing.JFrame {
             nomeLista
         );
 
+        carregarListas();
+
         JOptionPane.showMessageDialog(
             this,
             "Lista criada!"
@@ -200,6 +305,205 @@ public class Listas extends javax.swing.JFrame {
         e.printStackTrace();
     }
     }//GEN-LAST:event_btCriarActionPerformed
+
+    private void listaListasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaListasValueChanged
+        // TODO add your handling code here:
+        String selecionada =
+        listaListas.getSelectedValue();
+
+    if (selecionada != null) {
+
+        Conexao conexao =
+            new Conexao();
+        try {
+
+            Connection conn =
+                conexao.getConnection();
+
+            ListaDAO dao =
+                new ListaDAO(conn);
+
+            int listaId =
+                dao.pegarIdLista(
+                    selecionada,
+                    conta.getId()
+                );
+            ResultSet rs =
+                dao.listarVideosLista(listaId);
+
+            areaLista.setText("");
+
+            while (rs.next()) {
+
+                areaLista.append(
+                    rs.getInt("ordem") +
+                    ". " +
+                    rs.getString("titulo") +
+                    "\n"
+                );
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+      }
+    }//GEN-LAST:event_listaListasValueChanged
+
+    private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        // TODO add your handling code here:
+        
+        String selecionada =
+        listaListas.getSelectedValue();
+
+    if (selecionada != null) {
+
+        Conexao conexao =
+            new Conexao();
+
+        try {
+
+            Connection conn =
+                conexao.getConnection();
+
+            ListaDAO dao =
+                new ListaDAO(conn);
+
+            dao.excluirLista(
+                conta.getId(),
+                selecionada
+            );
+
+            carregarListas();
+
+            areaLista.setText("");
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Lista excluída!"
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+   }
+    }//GEN-LAST:event_btExcluirActionPerformed
+
+    private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
+        // TODO add your handling code here:
+        String listaSelecionada =
+        listaListas.getSelectedValue();
+
+    if (listaSelecionada != null) {
+
+        String titulo =
+            JOptionPane.showInputDialog(
+                this,
+                "Digite o título do vídeo:"
+            );
+
+        if (titulo != null &&
+            !titulo.isEmpty()) {
+
+            Conexao conexao =
+                new Conexao();
+
+            try {
+
+                Connection conn =
+                    conexao.getConnection();
+
+                ListaDAO dao =
+                    new ListaDAO(conn);
+
+                int listaId =
+                    dao.pegarIdLista(
+                        listaSelecionada,
+                        conta.getId()
+                    );
+
+                dao.removerVideoLista(
+                    listaId,
+                    titulo
+                );
+
+                JOptionPane.showMessageDialog(
+                    this,
+                    "Vídeo removido!"
+                );
+
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+    }//GEN-LAST:event_btRemoverActionPerformed
+
+    private void btAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddActionPerformed
+        // TODO add your handling code here:
+        
+        Video video =
+        favoritosAtual.get(
+            listaFavoritos.getSelectedIndex()
+        );
+
+    String listaSelecionada =
+        listaListas.getSelectedValue();
+
+    if (video != null &&
+        listaSelecionada != null) {
+
+        Conexao conexao =
+            new Conexao();
+
+        try {
+
+            Connection conn =
+                conexao.getConnection();
+
+            ListaDAO dao =
+                new ListaDAO(conn);
+
+            int listaId =
+                dao.pegarIdLista(
+                    listaSelecionada,
+                    conta.getId()
+                );
+
+            int ordem =
+                dao.contarVideosLista(listaId) + 1;
+
+            dao.adicionarVideoLista(
+                listaId,
+                video.getId(),
+                ordem
+            );
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Vídeo adicionado!"
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+    }//GEN-LAST:event_btAddActionPerformed
+
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+        // TODO add your handling code here:
+        Logado tela = new Logado(conta);
+        tela.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void btRecarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRecarregarActionPerformed
+        // TODO add your handling code here:
+        carregarFavoritos();
+        carregarListas();
+    }//GEN-LAST:event_btRecarregarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,11 +531,22 @@ public class Listas extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea areaLista;
+    private javax.swing.JButton btAdd;
     private javax.swing.JButton btCriar;
+    private javax.swing.JButton btExcluir;
+    private javax.swing.JButton btRecarregar;
+    private javax.swing.JButton btRemover;
+    private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JList<String> listaFavoritos;
+    private javax.swing.JList<String> listaListas;
     // End of variables declaration//GEN-END:variables
 }
