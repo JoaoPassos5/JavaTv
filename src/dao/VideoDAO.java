@@ -37,11 +37,13 @@ public class VideoDAO {
             String titulo = rs.getString("titulo");
             int duracao = rs.getInt("duracao");
             String tipo = rs.getString("tipo");
+            String genero = rs.getString("genero");
+            int anolancamento = rs.getInt("ano_lancamento");
 
             if (tipo.equals("filme")) {
-                lista.add(new Filme(id, titulo, duracao));
+                lista.add(new Filme(id, titulo, duracao,genero,anolancamento));
             } else {
-                lista.add(new Serie(id, titulo, duracao));
+                lista.add(new Serie(id, titulo, duracao, genero, anolancamento));
             }
         }
 
@@ -64,11 +66,13 @@ public class VideoDAO {
         String titulo = rs.getString("titulo");
         int duracao = rs.getInt("duracao");
         String tipo = rs.getString("tipo");
+        String genero = rs.getString("genero");
+        int anolancamento = rs.getInt("ano_lancamento");
 
         if (tipo.equals("filme")) {
-            lista.add(new Filme(id, titulo, duracao));
+            lista.add(new Filme(id, titulo, duracao, genero, anolancamento));
         } else {
-            lista.add(new Serie(id, titulo, duracao));
+            lista.add(new Serie(id, titulo, duracao, genero,anolancamento));
         }
     }
 

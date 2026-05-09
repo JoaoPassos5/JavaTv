@@ -10,14 +10,12 @@ package model;
  */
 public class Serie extends Video {
 
-    public Serie(int id, String titulo, int duracao) {
-        super(id, titulo, duracao);
+    public Serie(int id, String titulo, int duracao, String genero, int anolancamento) {
+        super(id, titulo, duracao, genero, anolancamento);
     }
-    
-    
-    
-  
 
+   
+  
 
     
 

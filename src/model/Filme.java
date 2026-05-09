@@ -10,13 +10,11 @@ package model;
  */
 public class Filme extends Video {
 
-    public Filme(int id, String titulo, int duracao) {
-        super(id, titulo, duracao);
+    public Filme(int id, String titulo, int duracao, String genero, int anolancamento) {
+        super(id, titulo, duracao, genero, anolancamento);
     }
-    
-    
-   
-  
+
+
     
     @Override
     public void exibirInfo() {
