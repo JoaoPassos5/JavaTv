@@ -14,6 +14,7 @@ import model.Conta;
 import model.Filme;
 import model.Serie;
 import model.Video;
+import java.sql.ResultSet;
 
 /**
  *
@@ -58,16 +59,21 @@ public class MenuVideo extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btVoltar = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        btMostrarC = new javax.swing.JButton();
+        btMostrarD = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btFilme.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         btFilme.setText("Filmes");
-        btFilme.addActionListener(this::btFilmeActionPerformed);
+        btFilme.addActionListener();
 
         btSerie.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         btSerie.setText("Séries");
-        btSerie.addActionListener(this::btSerieActionPerformed);
+        btSerie.addActionListener();
 
         lblMenu.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         lblMenu.setText("Menu Vídeo");
@@ -76,16 +82,16 @@ public class MenuVideo extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        listaVideos.addListSelectionListener(this::listaVideosValueChanged);
+        listaVideos.addListSelectionListener();
         jScrollPane2.setViewportView(listaVideos);
 
         btCurtir.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         btCurtir.setText("Curtir");
-        btCurtir.addActionListener(this::btCurtirActionPerformed);
+        btCurtir.addActionListener();
 
         btDescurtir.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         btDescurtir.setText("Descutir");
-        btDescurtir.addActionListener(this::btDescurtirActionPerformed);
+        btDescurtir.addActionListener();
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel1.setText("Descubra, Pesquise e Curta Vídeos!");
@@ -97,7 +103,23 @@ public class MenuVideo extends javax.swing.JFrame {
         jLabel3.setText("Curta ou Descurta um Vídeo!");
 
         btVoltar.setText("◀️");
-        btVoltar.addActionListener(this::btVoltarActionPerformed);
+        btVoltar.addActionListener();
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane3.setViewportView(jTextArea2);
+
+        btMostrarC.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        btMostrarC.setText("Mostrar Curtidas");
+        btMostrarC.addActionListener();
+
+        btMostrarD.setFont(new java.awt.Font("Segoe UI", 2, 11)); // NOI18N
+        btMostrarD.setText("Mostrar Descurtidas");
+        btMostrarD.setToolTipText("");
+        btMostrarD.addActionListener();
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        jLabel4.setText("Visualise suas Curtidas!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,18 +145,31 @@ public class MenuVideo extends javax.swing.JFrame {
                         .addGap(139, 139, 139)
                         .addComponent(lblMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btCurtir, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140)
-                        .addComponent(btDescurtir, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(113, 113, 113))
+                        .addComponent(jLabel4)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btCurtir, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(140, 140, 140)
+                                        .addComponent(btDescurtir, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btMostrarC, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btMostrarD, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(113, 113, 113))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,7 +199,15 @@ public class MenuVideo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCurtir, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btDescurtir, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btMostrarC)
+                    .addComponent(btMostrarD))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95))
         );
 
         pack();
@@ -351,6 +394,58 @@ public class MenuVideo extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btVoltarActionPerformed
 
+    private void btMostrarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarCActionPerformed
+        // TODO add your handling code here:
+    Conexao conexao = new Conexao();
+
+    try {
+
+        Connection conn = conexao.getConnection();
+
+        SituacaoDAO dao = new SituacaoDAO(conn);
+
+        ResultSet rs = dao.listarCurtidos(conta.getId());
+
+        jTextArea2.setText("");
+
+        while (rs.next()) {
+
+            jTextArea2.append(
+                rs.getString("titulo") + "\n"
+            );
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_btMostrarCActionPerformed
+
+    private void btMostrarDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btMostrarDActionPerformed
+        // TODO add your handling code here:
+    Conexao conexao = new Conexao();
+
+    try {
+
+        Connection conn = conexao.getConnection();
+
+        SituacaoDAO dao = new SituacaoDAO(conn);
+
+        ResultSet rs = dao.listarDescurtidos(conta.getId());
+
+        jTextArea2.setText("");
+
+        while (rs.next()) {
+
+            jTextArea2.append(
+                rs.getString("titulo") + "\n"
+            );
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_btMostrarDActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -380,14 +475,19 @@ public class MenuVideo extends javax.swing.JFrame {
     private javax.swing.JButton btCurtir;
     private javax.swing.JButton btDescurtir;
     private javax.swing.JButton btFilme;
+    private javax.swing.JButton btMostrarC;
+    private javax.swing.JButton btMostrarD;
     private javax.swing.JButton btSerie;
     private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel lblMenu;
     private javax.swing.JList<String> listaVideos;
     // End of variables declaration//GEN-END:variables
