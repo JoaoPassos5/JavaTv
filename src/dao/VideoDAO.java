@@ -31,21 +31,26 @@ public class VideoDAO {
 
         ArrayList<Video> lista = new ArrayList<>();
 
-        while (rs.next()) {
+    while (rs.next()) {
 
-            int id = rs.getInt("id");
-            String titulo = rs.getString("titulo");
-            int duracao = rs.getInt("duracao");
-            String tipo = rs.getString("tipo");
-            String genero = rs.getString("genero");
-            int anolancamento = rs.getInt("ano_lancamento");
+     int id = rs.getInt("id");
+     String titulo = rs.getString("titulo");
+     int duracao = rs.getInt("duracao");
+     String tipo = rs.getString("tipo");
+     String genero = rs.getString("genero");
+     int anolancamento = rs.getInt("ano_lancamento");
 
-            if (tipo.equals("filme")) {
-                lista.add(new Filme(id, titulo, duracao,genero,anolancamento));
-            } else {
-                lista.add(new Serie(id, titulo, duracao, genero, anolancamento));
-            }
-        }
+     if (tipo.equals("filme")) {
+
+        lista.add(new Filme(id, titulo, duracao, genero, anolancamento));
+
+     } else {
+
+        String situacao = rs.getString("situacao");
+
+        lista.add(new Serie(situacao,id, titulo, duracao, genero, anolancamento));
+     }
+} 
 
         return lista;
     }
@@ -62,19 +67,24 @@ public class VideoDAO {
 
     while (rs.next()) {
 
-        int id = rs.getInt("id");
-        String titulo = rs.getString("titulo");
-        int duracao = rs.getInt("duracao");
-        String tipo = rs.getString("tipo");
-        String genero = rs.getString("genero");
-        int anolancamento = rs.getInt("ano_lancamento");
+    int id = rs.getInt("id");
+    String titulo = rs.getString("titulo");
+    int duracao = rs.getInt("duracao");
+    String tipo = rs.getString("tipo");
+    String genero = rs.getString("genero");
+    int anolancamento = rs.getInt("ano_lancamento");
 
-        if (tipo.equals("filme")) {
-            lista.add(new Filme(id, titulo, duracao, genero, anolancamento));
-        } else {
-            lista.add(new Serie(id, titulo, duracao, genero,anolancamento));
-        }
+    if (tipo.equals("filme")) {
+
+        lista.add(new Filme(id, titulo, duracao, genero, anolancamento));
+
+    } else {
+
+        String situacao = rs.getString("situacao");
+
+        lista.add(new Serie(situacao, id, titulo, duracao, genero, anolancamento));
     }
+}
 
     return lista;
 }

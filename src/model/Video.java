@@ -49,7 +49,11 @@ public abstract class Video {
     public abstract void exibirInfo();
     
     @Override
-    public String toString() {
-      return titulo;
+public String toString() {
+
+    return "Título: " + titulo +
+           "\nGênero: " + genero +
+           "\nDuração: " + duracao +
+           "\nAno: " + anolancamento;
 }
 }

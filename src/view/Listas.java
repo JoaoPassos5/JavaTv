@@ -58,35 +58,39 @@ public class Listas extends javax.swing.JFrame {
 
         this.favoritosAtual = new ArrayList<>(); // <- FIX PRINCIPAL
 
-        while (rs.next()) {
+    while (rs.next()) {
 
-            int id = rs.getInt("id");
-            String titulo = rs.getString("titulo");
-            int duracao = rs.getInt("duracao");
-            String tipo = rs.getString("tipo");
-            String genero = rs.getString("genero");
-            int ano = rs.getInt("ano_lancamento");
+     int id = rs.getInt("id");
+     String titulo = rs.getString("titulo");
+     int duracao = rs.getInt("duracao");
+     String tipo = rs.getString("tipo");
+     String genero = rs.getString("genero");
+     int ano = rs.getInt("ano_lancamento");
 
-            Video v;
+     Video v;
 
-            if (tipo.equals("filme")) {
-                v = new Filme(id, titulo, duracao, genero, ano);
-            } else {
-                v = new Serie(id, titulo, duracao, genero, ano);
-            }
+     if (tipo.equals("filme")) {
 
-            this.favoritosAtual.add(v); 
+        v = new Filme(id, titulo, duracao, genero, ano);
 
-            model.addElement(v.getTitulo());
-        }
+     } else {
 
-        listaFavoritos.setModel(model);
+        String situacao = rs.getString("situacao");
 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+        v = new Serie(situacao, id, titulo, duracao, genero, ano);
+     }
+
+     this.favoritosAtual.add(v);
+
+     model.addElement(v.getTitulo());
 }
-    
+
+listaFavoritos.setModel(model);
+
+} catch (Exception e) {
+    e.printStackTrace();
+}
+    }    
     public void carregarListas() {
 
     Conexao conexao = new Conexao();
