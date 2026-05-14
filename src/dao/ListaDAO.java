@@ -37,6 +37,7 @@ public class ListaDAO {
     stmt.execute();
     }
     
+//Conta quantas listas existem, se tem 3, a proxima sera Lista 4
     public int contarListas(int usuarioId)
         throws SQLException {
 
@@ -97,7 +98,7 @@ public class ListaDAO {
     return 0;
    }
     
-    // Criei pois estava conflitando entre tbvideo e tblista, fazendo assim ele exclui o video da lista antes e ai exclui a lista
+// Criei pois estava conflitando entre tbvideo e tblista, fazendo assim ele exclui o video da lista antes e ai exclui a lista
     public void excluirLista(int usuarioId, String nome)
         throws SQLException {
 
@@ -127,6 +128,7 @@ public class ListaDAO {
     stmt2.execute();
 }
 
+//Busca os videos dentro da lista
     public ResultSet listarVideosLista(int listaId)
         throws SQLException {
 
@@ -146,6 +148,7 @@ public class ListaDAO {
     return stmt.executeQuery();
    }
     
+//Conta quantos videos tem na lista
     public int contarVideosLista(int listaId)
         throws SQLException {
 

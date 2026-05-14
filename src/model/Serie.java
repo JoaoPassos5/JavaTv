@@ -25,8 +25,9 @@ public class Serie extends Video {
         this.situacao = situacao;
     }
     
-   
-    @Override
+ 
+//Para criar a situação apenas em Series
+@Override
 public String toString() {
 
     return super.toString() +

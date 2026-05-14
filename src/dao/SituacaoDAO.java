@@ -21,6 +21,7 @@ public class SituacaoDAO {
         this.conn = conn;
     }
 
+//Curtir ou Descurtir
     public void salvarSituacao(int usuarioId, int videoId, boolean curtido) throws SQLException {
 
         String delete = "DELETE FROM tbsituacao WHERE usuario_id = ? AND video_id = ?";
